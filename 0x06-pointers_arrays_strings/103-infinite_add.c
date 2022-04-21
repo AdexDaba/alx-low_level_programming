@@ -32,4 +32,16 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		if (len1 < 0 && len2 < 0 && add == 0)
 			break;
 		r[i] = add % 10 + '0';
-
+		add /= 10;
+	}
+	r[i] = '\0';
+	if (len1 >= 0 || len2 >= 0 || add)
+		return (0);
+	for (i--, j = 0; i > j; i--, j++)
+	{
+		add = r[i];
+		r[i] = r[j];
+		r[j] = add;
+	}
+	return (r);
+}
