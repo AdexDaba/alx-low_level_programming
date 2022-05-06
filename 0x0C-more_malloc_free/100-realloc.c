@@ -1,35 +1,41 @@
-#include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
-
-
+#include "main.h"
 /**
- * _memcpy - copies memory
- * @dest: destination
- * @src: source
- * @n: size of memory to copy
- *
- * Return: Returns memory copied
- */
-char *_memcpy(char *dest, char *src, unsigned int n)
-{
-	unsigned int i;
-
-	for (i = 0; i < n; i++)
-		dest[i] = src[i];
-	return (dest);
-}
-
-/**
- * _realloc - reallocates a memory block using malloc and free
- * @ptr: pointer to modify
- * @old_size: current size of memory
- * @new_size: size memory will now have
- *
- * Return: Pointer to reallocated memory
- */
+  * _realloc - reallocates a memory block using malloc and free.
+  * @ptr: pointer to the memory previously allocated with a
+  * call to ``` malloc : malloc(old_size) ```.
+  * @old_size: size in bytes allocated for ptr.
+  * @new_size: size in bytes of new memory block.
+  *
+  * Return: pointer to new mem block, NULL or ptr.
+  */
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	void *ptr2;
+	char *nptr;
+	unsigned int i;
 
+	if (new_size == old_size)
+		return (ptr);
+	if ((new_size == 0) && (ptr != NULL))
+	{
+		free(ptr);
+		return (NULL);
+	}
+	if (ptr == NULL)
+	{
+		nptr = malloc(new_size);
+		if (nptr == NULL)
+			return (NULL);
+	}
+	if (new_size > old_size && (ptr != NULL))
+	{
+		nptr = malloc(new_size);
+		if (nptr == NULL)
+			return (nptr);
+		for (i = 0; i < old_size; i++)
+			nptr[i] = *((char *)ptr + 1);
+		free(ptr);
+	}
 
+	return (nptr);
+}
