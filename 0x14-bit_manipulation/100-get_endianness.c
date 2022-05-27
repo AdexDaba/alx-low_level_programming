@@ -1,7 +1,3 @@
-/*
- * File: 100-get_endianness.c
- */
-
 #include "main.h"
 /**
  * get_endianness - Checks the endianness.
